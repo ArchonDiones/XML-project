@@ -1,0 +1,24 @@
+<?php
+include('config/boot.php');
+if(isset($_POST['AID']))
+{
+	//$ID = $_POST['AID'];
+
+	// delete Untersuchung
+	$DelUnt= $database->prepare("DELETE FROM Untersuchung_TBL WHERE AID =?");
+	$DelUnt->$bind_param('s',$_POST['AID']);
+	$DelUnt->execute();
+	//$db->query($DelUnt);
+
+	// delete Aerzt
+	$sql = $database->prepare("DELETE FROM Aerzte_TBL WHERE AID=?");
+	$sql->$bind_param('s',$_POST['AID']);
+	$sql->execute();
+	//$db->query($sql);
+
+	$status->info("Aerzt geloescht.");
+	$status->info("SQL: $sql");
+}
+	echo $status->html();
+
+?>
